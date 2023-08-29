@@ -26,7 +26,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	// Get Data User Berdasarkan Username
 	var user models.User
-	if err := models.DB.Table("login").Where("username =?", userInput.Username).First(&user).Error; err != nil {
+	if err := models.DB.Where("username =?", userInput.Username).First(&user).Error; err != nil {
 		switch err {
 		case gorm.ErrRecordNotFound:
 			response := map[string]string{"message": "Username Tidak Ditemukan"}
@@ -99,7 +99,7 @@ func Register(w http.ResponseWriter, r *http.Request) {
 	userInput.Password = string(hashPass)
 
 	// Exec DB
-	if err := models.DB.Table("login").Create(&userInput).Error; err != nil {
+	if err := models.DB.Create(&userInput).Error; err != nil {
 		response := map[string]string{"message": "Internal Server Error"}
 		helper.ResponeJSON(w, http.StatusInternalServerError, response)
 		return

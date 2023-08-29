@@ -13,5 +13,7 @@ func KonekDB() {
 		panic(err.Error())
 	}
 
+	db.AutoMigrate(&User{})
+
 	DB = db
 }
