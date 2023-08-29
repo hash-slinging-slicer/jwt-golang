@@ -1,0 +1,1 @@
+IF EXIST DROP TABLE login
